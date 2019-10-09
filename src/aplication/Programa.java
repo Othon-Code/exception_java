@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import model.entities.Reserva;
+import model.exceptions.DomainException;
 
 public class Programa {
 
@@ -23,7 +24,7 @@ public class Programa {
 			Date dataOut = sdf.parse(sc.next());
 
 			Reserva reserv = new Reserva(num, dataIn, dataOut);
-			System.out.println("Reserva: " + reserv);
+			System.out.println("Reserva bem concluída: " + reserv);
 
 			System.out.println();
 			System.out.println("Entre as datas para atualizar a reserva: ");
@@ -34,11 +35,14 @@ public class Programa {
 			dataOut = sdf.parse(sc.next());
 
 			reserv.atualizaDatas(dataIn, dataOut);
-			System.out.println("Reserva: " + reserv);
+			System.out.println("Reserva atualizada com sucesso: " + reserv);
 		} catch (ParseException e) {
 			System.out.println("Formato de data inválido!! ");
-		} catch (IllegalArgumentException e) {
-			System.out.println("Erro na reserva " + e.getMessage());
+		} catch (DomainException e) {
+			System.out.println("Erro na reserva. " + e.getMessage());
+		}
+		catch(RuntimeException e) {
+			System.out.println("Error inesperado !!");
 		}
 		sc.close();
 
