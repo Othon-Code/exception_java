@@ -40,20 +40,20 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
 	}
 
-	public String atualizaDatas(Date checkin, Date checkout) {
+	public void atualizaDatas(Date checkin, Date checkout) {
 		Date now = new Date();
 
-		if (checkIn.before(now) || checkOut.before(now)) {
-			return "Erro nas reservas. As datas de reserva devem ser futuras.";
+		if (checkin.before(now) || checkout.before(now)) {
+			throw new IllegalArgumentException("Erro nas reservas. As datas de reserva devem ser futuras.");
 		} 
 		if (!checkOut.after(checkIn)) {
-			return "A data de ChecOut deve ser após a data de checkIn !!";
+			throw new IllegalArgumentException("A data de ChecOut deve ser após a data de checkIn !!");
 
 		}
 
 		this.checkIn = checkin;
 		this.checkOut = checkout;
-		return null;
+		
 	}
 
 	@Override
